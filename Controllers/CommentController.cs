@@ -44,7 +44,7 @@ namespace API.Controllers
             return Ok(comment.ToGetCommentDto());
         }
 
-        [HttpGet("{postId}/comments")]
+        [HttpGet("{postId}/comment")]
         public async Task<IActionResult> GetPostComments([FromRoute] int postId)
         {
             if (!ModelState.IsValid)
