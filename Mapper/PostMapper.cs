@@ -10,6 +10,7 @@ namespace API.Mapper
         {
             return new GetPostDto
             {
+                Id = postModel.Id,
                 Title = postModel.Title,
                 Content = postModel.Content,
                 Comments = postModel.Comments?.Select(c => c.ToGetCommentDto()).ToList()
@@ -20,6 +21,7 @@ namespace API.Mapper
         {
             return new Post
             {
+                Id=postModel.Id,
                 Title = postModel.Title,
                 Content = postModel.Content,
             };

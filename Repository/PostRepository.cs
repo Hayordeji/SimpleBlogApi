@@ -53,14 +53,16 @@ namespace API.Repository
                posts = _context.Posts.Where(s => s.Title.Contains(query.Keyword));
             }
 
-            int skipNumber = (query.PageNumber - 1) * query.PageSize;
-            if (query.PageNumber > 0 && query.PageSize > 0)
+            int pageSize = 4;
+            int defaultNumber = Math.Abs(query.PageNumber);
+            int skipNumber = (query.PageNumber - 1) * pageSize;
+            if (query.PageNumber > 0)
             {
-                return await posts.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+                return await posts.Skip(skipNumber).Take(pageSize).ToListAsync();
             }
             else
             {
-                return await posts.ToListAsync();
+                return await posts.Skip(0).Take(pageSize).ToListAsync();
             }
 
             
@@ -84,30 +86,6 @@ namespace API.Repository
         public async Task<bool> PostExists(int id)
         {
             return await _context.Posts.AnyAsync(c => c.Id == id);
-        }
-
-        public async Task<Post> LikePost(int id)
-        {
-            var postToLike = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
-            if (postToLike == null)
-            {
-                return null;
-            }
-            postToLike.Like++;
-            await _context.SaveChangesAsync();
-            return postToLike;
-        }
-
-        public async Task<Post> DislikePost(int id)
-        {
-            var postToLike = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
-            if (postToLike == null)
-            {
-                return null;
-            }
-            postToLike.Dislike++;
-            await _context.SaveChangesAsync();
-            return postToLike;
         }
     }   
 }

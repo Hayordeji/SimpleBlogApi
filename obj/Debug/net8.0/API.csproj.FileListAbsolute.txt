@@ -276,3 +276,4 @@ C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsof
 C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\obj\Debug\net8.0\API.sourcelink.json

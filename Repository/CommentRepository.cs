@@ -26,14 +26,16 @@ namespace API.Repository
         public async Task<List<Comment>> GetAllComments(QueryObject query)
         {
             var comments = _context.Comments.AsQueryable();
-            var skipNumber = (query.PageNumber - 1) * query.PageSize;
-            if (query.PageNumber > 0 && query.PageSize > 0)
+            int pageSize = 4;
+            int defaultNumber = Math.Abs(query.PageNumber);
+            var skipNumber = (query.PageNumber - 1) * pageSize;
+            if (query.PageNumber > 0)
             {
-                return await comments.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+                return await comments.Skip(skipNumber).Take(pageSize).ToListAsync();
             }
             else
             {
-                return await comments.ToListAsync();
+                return await comments.Skip(0).Take(pageSize).ToListAsync();
             }
         }
 

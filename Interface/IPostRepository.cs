@@ -18,8 +18,7 @@ namespace API.Interface
         public Task<Post> DeletePost(int id);
 
         public Task<bool> PostExists(int id);
-        public Task<Post> LikePost(int id);
-        public Task<Post> DislikePost(int id);
+       
 
 
     }

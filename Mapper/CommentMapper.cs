@@ -9,6 +9,7 @@ namespace API.Mapper
         {
             return new GetCommentDto
             {
+                Id = commentModel.Id,
                 Content = commentModel.Content,
                 CreatedOn = commentModel.CreatedOn,
             };
@@ -18,6 +19,7 @@ namespace API.Mapper
         {
             return new Comment
             {
+                Id = commentModel.Id,
                 Content = commentModel.Content,
                 PostId = postId
             };
@@ -27,6 +29,7 @@ namespace API.Mapper
         {
             return new Comment
             {
+                Id = commentModel.Id,
                 Content = commentModel.Content,
             };
         }
