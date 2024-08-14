@@ -13,6 +13,7 @@ namespace API.Mapper
                 Id = postModel.Id,
                 Title = postModel.Title,
                 Content = postModel.Content,
+                CreatedBy = postModel.User.UserName,
                 Comments = postModel.Comments?.Select(c => c.ToGetCommentDto()).ToList()
             };
         }

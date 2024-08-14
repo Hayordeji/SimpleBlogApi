@@ -41,7 +41,7 @@ namespace API.Repository
 
         public async Task<Post> GetPostById(int id)
         {
-            var post = await _context.Posts.Include(c => c.Comments).FirstOrDefaultAsync(p => p.Id == id);
+            var post = await _context.Posts.Include(c => c.User).ThenInclude(a => a.Comments).FirstOrDefaultAsync(p => p.Id == id);
             return post;
         }
 
@@ -50,7 +50,7 @@ namespace API.Repository
             var posts =  _context.Posts.Include(c => c.Comments).AsQueryable();
             if (!string.IsNullOrWhiteSpace(query.Keyword))
             {
-               posts = _context.Posts.Where(s => s.Title.Contains(query.Keyword));
+               posts = _context.Posts.Include(a => a.User).Where(s => s.Title.Contains(query.Keyword));
             }
 
             int pageSize = 4;
@@ -58,11 +58,11 @@ namespace API.Repository
             int skipNumber = (query.PageNumber - 1) * pageSize;
             if (query.PageNumber > 0)
             {
-                return await posts.Skip(skipNumber).Take(pageSize).ToListAsync();
+                return await posts.Skip(skipNumber).Take(pageSize).Include(a => a.User).ToListAsync();
             }
             else
             {
-                return await posts.Skip(0).Take(pageSize).ToListAsync();
+                return await posts.Skip(0).Take(pageSize).Include(a => a.User).ToListAsync();
             }
 
             

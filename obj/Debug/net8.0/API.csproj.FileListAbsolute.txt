@@ -277,3 +277,10 @@ C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsof
 C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\obj\Debug\net8.0\API.sourcelink.json
+C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\molefox\source\repos\SimpleBlog\SimpleBlogApi\bin\Debug\net8.0\Microsoft.Extensions.Options.dll

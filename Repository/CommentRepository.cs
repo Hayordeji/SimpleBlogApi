@@ -19,7 +19,7 @@ namespace API.Repository
         }
         public async Task<Comment> GetComment(int id)
         {
-            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            var comment = await _context.Comments.Include(a => a.User).FirstOrDefaultAsync(c => c.Id == id);
             return comment;
         }
 
@@ -31,11 +31,11 @@ namespace API.Repository
             var skipNumber = (query.PageNumber - 1) * pageSize;
             if (query.PageNumber > 0)
             {
-                return await comments.Skip(skipNumber).Take(pageSize).ToListAsync();
+                return await comments.Skip(skipNumber).Take(pageSize).Include(a => a.User).ToListAsync();
             }
             else
             {
-                return await comments.Skip(0).Take(pageSize).ToListAsync();
+                return await comments.Skip(0).Take(pageSize).Include(a => a.User).ToListAsync();
             }
         }
 
@@ -46,7 +46,7 @@ namespace API.Repository
                 return null;
             }
 
-            var comments = await _context.Comments.Where(c => c.PostId == postId).ToListAsync();
+            var comments = await _context.Comments.Where(c => c.PostId == postId).Include(a => a.User).ToListAsync();
 
             return comments;
         }
