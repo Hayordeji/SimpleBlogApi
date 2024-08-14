@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -75,10 +76,12 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginModel.Username.ToLower());
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginModel.UsernameOrEmail.ToLower()
+            || x.Email == loginModel.UsernameOrEmail.ToLower());
+           
             if (user == null)
             {
-                return Unauthorized("Wrong Username");
+                return Unauthorized("Wrong Username/ Password");
             }
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginModel.Password, false);
             if (!result.Succeeded)
@@ -91,6 +94,8 @@ namespace API.Controllers
                 Email = user.Email,
                 JWTtoken = await _tokenService.CreateToken(user)
             });
+
+
         }
     }
 }
