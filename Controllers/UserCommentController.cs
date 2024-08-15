@@ -37,34 +37,6 @@ namespace API.Controllers
             
         }
 
-        [HttpPost("{postId}")]
-        [Authorize]
-        public async Task<IActionResult> CreateUserComment([FromBody] CreateCommentDto commentDto, [FromRoute] int postId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            //Get user claim
-            var user = User.GetUsername();
-            //find the user that matches the user claim
-            var appUser = await _userManager.FindByNameAsync(user);
-            //create comment
-            var commentMap = commentDto.ToCreateCommentDto(postId);
-            var newComment = await _commentRepo.CreateComment(commentMap);
-            //check if comment is null
-            if (newComment == null)
-            {
-                return BadRequest("Comment is null");
-            }
-            //create usercomment object
-            var newUserComment = new UserComment
-            {
-                UserId = appUser.Id,
-                CommentId = newComment.Id,
-            };
-
-            return Created();
-        }
+       
     }
 }

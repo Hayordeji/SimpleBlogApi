@@ -37,49 +37,7 @@ namespace API.Controllers
             return Ok(userPosts);
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreateUserPost([FromBody] CreatePostDto postDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            //gets the user
-            var user = User.GetUsername();
-            var appUser = await _user.FindByNameAsync(user);
-
-            //Map the PostDto to an object
-            var newPost = postDto.ToPostCreateDto();
-            if (newPost == null)
-            {
-                return BadRequest("Post is empty");
-            }
-
-            //creates the post
-            var createdPost = await _postRepo.CreatePost(newPost);
-            if (createdPost == null)
-            {
-                return BadRequest("Could not add post");
-            }
-
-            //Initialize the UserPost Object
-            var userPost = new UserPost
-            {
-                UserId = appUser.Id,
-                PostId = createdPost.Id,
-            };
-
-            //Add the UserPost object to the database
-            await _userPostRepo.CreateUserPost(userPost);
-            if (userPost == null)
-            {
-                return StatusCode(500, "Could not add UserPost");
-            }
-            return Created();
-
-        }
+        
 
         
     }
