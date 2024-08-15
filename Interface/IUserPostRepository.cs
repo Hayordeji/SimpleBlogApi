@@ -8,6 +8,8 @@ namespace API.Interface
     {
         Task<List<Post>> GetUserPosts(AppUser user);
         Task <UserPost> CreateUserPost(UserPost userPost);
-        
+        Task<UserPost> DeleteUserPost(int id);
+
+
     }
 }

@@ -24,6 +24,18 @@ namespace API.Repository
             return userPost;
         }
 
+        public async Task<UserPost> DeleteUserPost(int id)
+        {
+            var userPost = await _context.UserPosts.FirstOrDefaultAsync(u => u.PostId == id);
+            if (userPost != null) 
+            {
+                _context.Remove(userPost);
+                await _context.SaveChangesAsync();
+                return userPost;
+            }
+            return null;
+        }
+
         public async Task<List<Post>> GetUserPosts(AppUser user)
         {
             return await _context.UserPosts.Where(u => u.UserId == user.Id).Select(userPost => new Post

@@ -146,11 +146,7 @@ namespace API.Controllers
 
             //delete post
             var postToDelete = await _postRepo.DeletePost(id);
-            if (postToDelete == null)
-            {
-                return NotFound();
-            }
-
+            await _userPostRepo.DeleteUserPost(postToDelete.Id);
             return Ok("Post Deleted Successfully");
         }
     }    
