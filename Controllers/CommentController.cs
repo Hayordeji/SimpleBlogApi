@@ -172,6 +172,7 @@ namespace API.Controllers
                 return Forbid("Comment was not created by this user");
             }
             await _commentRepo.DeleteComment(id);
+            await _userCommentRepo.DeleteUserComment(commentToDelete.Id);
             return Ok("Comment successfully deleted");
 
 

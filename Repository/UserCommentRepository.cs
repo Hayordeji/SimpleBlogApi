@@ -22,6 +22,18 @@ namespace API.Repository
             return userComment;
         }
 
+        public async Task<UserComment> DeleteUserComment(int id)
+        {
+            var userComment = await _context.UserComments.FirstOrDefaultAsync(c => c.CommentId == id);
+            if (userComment == null)
+            {
+                return null;
+            }
+            _context.Remove(userComment);
+            await _context.SaveChangesAsync();
+            return userComment;
+        }
+
         public async Task<List<Comment>> GetUserComments(AppUser user)
         {
             return await _context.UserComments.Where(u => u.UserId == user.Id).Select(userComment => new Comment

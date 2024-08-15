@@ -8,5 +8,6 @@ namespace API.Interface
     {
         Task<List<Comment>> GetUserComments(AppUser user);
         Task<UserComment> CreateUserComment(UserComment userComment);
+        Task<UserComment> DeleteUserComment(int id);
     }
 }
