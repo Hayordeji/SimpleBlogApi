@@ -32,6 +32,14 @@ namespace API.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+                if ( await _tokenService.EmailExists(registerModel.Email))
+                {
+                    return BadRequest("Email already Exists");
+                }
+                if (await _tokenService.UserNameExists(registerModel.Username)) 
+                {
+                    return BadRequest("Username already Exists");
+                }
                 var newUser = new AppUser
                 {
                     UserName = registerModel.Username,

@@ -47,10 +47,10 @@ namespace API.Repository
 
         public async Task<List<Post>> GetPosts(QueryObject query)
         {
-            var posts =  _context.Posts.Include(c => c.Comments).AsQueryable();
+            var posts =  _context.Posts.Include(u => u.User).ThenInclude(a => a.Comments).AsQueryable();
             if (!string.IsNullOrWhiteSpace(query.Keyword))
             {
-               posts = _context.Posts.Include(a => a.User).Where(s => s.Title.Contains(query.Keyword));
+               posts = _context.Posts.Include(c => c.User).Where(s => s.Title.Contains(query.Keyword));
             }
 
             int pageSize = 4;
@@ -62,7 +62,7 @@ namespace API.Repository
             }
             else
             {
-                return await posts.Skip(0).Take(pageSize).Include(a => a.User).ToListAsync();
+                return await posts.Skip(0).Take(pageSize).Include(a => a.User).ThenInclude(a => a.Comments).ToListAsync();
             }
 
             

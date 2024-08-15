@@ -141,11 +141,8 @@ namespace API.Controllers
             {
                 return Forbid("Comment was not created by this user");
             }
-
-            var commentModel = commentDto.ToUpdateCommentDto();
-            commentModel.UserId = appUser.Id;
-            await _commentRepo.UpdateComment(commentModel, id);
-            return Ok(commentModel);
+            var commentModel = await _commentRepo.UpdateComment(commentDto.ToUpdateCommentDto(), id);
+            return Ok("Updated Successfully");
         }
 
         [HttpDelete("{id}")]

@@ -2,6 +2,7 @@
 using API.Helpers;
 using API.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SimpleBlogApi.Data;
 using SimpleBlogApi.Models;
 using System.Linq;
@@ -26,6 +27,10 @@ namespace API.Repository
         public async Task<List<Comment>> GetAllComments(QueryObject query)
         {
             var comments = _context.Comments.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.Keyword))
+            {
+                return await _context.Comments.Where(x => x.Content.Contains(query.Keyword)).Include(u => u.User).ToListAsync();
+            }
             int pageSize = 4;
             int defaultNumber = Math.Abs(query.PageNumber);
             var skipNumber = (query.PageNumber - 1) * pageSize;
@@ -37,6 +42,8 @@ namespace API.Repository
             {
                 return await comments.Skip(0).Take(pageSize).Include(a => a.User).ToListAsync();
             }
+
+
         }
 
         public async Task<List<Comment>> GetPostComments(int postId)
@@ -63,7 +70,10 @@ namespace API.Repository
         public async Task<Comment> UpdateComment(Comment comment, int id)
         {
             var commentToUpdate = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
-
+            if (commentToUpdate == null)
+            {
+                return null;
+            }
             commentToUpdate.Content = comment.Content;
             _context.Update(commentToUpdate);
             await _context.SaveChangesAsync();

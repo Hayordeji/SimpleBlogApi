@@ -14,8 +14,7 @@ namespace API.Mapper
                 CreatedOn = commentModel.CreatedOn,
                 CreatedBy = commentModel.User.UserName,
                 UserId = commentModel.User.Id,
-                PostId = commentModel.PostId,
-                
+                PostId = commentModel.PostId,      
             };
         }
 
@@ -32,11 +31,8 @@ namespace API.Mapper
         public static Comment ToUpdateCommentDto(this UpdateCommentDto commentModel)
         {
             return new Comment
-            {
-                Id = commentModel.Id,
+            {   
                 Content = commentModel.Content,
-                UserId = commentModel.UserId,
-                PostId = commentModel.PostId,
             };
         }
 

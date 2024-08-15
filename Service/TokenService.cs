@@ -1,6 +1,9 @@
-﻿using API.Interface;
+﻿using API.Dto.Account;
+using API.Interface;
 using API.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SimpleBlogApi.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -11,11 +14,12 @@ namespace API.Service
     {
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
-        public TokenService(IConfiguration config)
+        private readonly ApplicationDbContext _context;
+        public TokenService(IConfiguration config, ApplicationDbContext context)
         {
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));
-            
+            _context = context;
         }
         public async Task<string> CreateToken(AppUser user)
         {
@@ -37,6 +41,16 @@ namespace API.Service
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public async Task<bool> EmailExists(string email)
+        {
+            return true ? await _context.Users.AnyAsync(u => u.Email == email) : false;  
+        }
+
+        public async Task<bool> UserNameExists(string userName)
+        {
+            return true ? await _context.Users.AnyAsync(u => u.UserName == userName) : false;
         }
     }
 }

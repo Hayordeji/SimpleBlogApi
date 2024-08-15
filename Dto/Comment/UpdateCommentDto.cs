@@ -5,10 +5,7 @@ namespace API.Dto.CommentDto
 {
     public class UpdateCommentDto
     {
-      
-        public int Id { get; set; }
-        public int PostId { get; set; }
-        public string UserId { get; set; }
+        //i removed id,postid and userid
         public string Content { get; set; }
         
     }
