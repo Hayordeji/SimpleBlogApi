@@ -28,6 +28,7 @@ namespace API.Controllers
         {
             try
             {
+                //Check if Model State is Valid
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
